@@ -13,6 +13,6 @@ class CustomColors {
   static const Color clrgborder = Color.fromRGBO(231, 231, 231, 1);
   static const Color clrggreytxt = Color.fromRGBO(176, 176, 176, 1);
   static const Color clrcont = Color.fromRGBO(223, 231, 253, 0.22);
-
+  static const Color clrborder = Color.fromRGBO(128, 128, 128, 1);
 
 }

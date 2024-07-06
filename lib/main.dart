@@ -1,3 +1,4 @@
+import 'package:dynamicvideosection/ui_helper/custom_colors.dart';
 import 'package:dynamicvideosection/view/videosection_main.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,16 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: VideosectionMain(),
+      home: VideoSectionMain(),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        appBarTheme: AppBarTheme(
+          color: CustomColors.clrwhite,
+        ),
+        tabBarTheme: TabBarTheme(
+            overlayColor: WidgetStateColor.transparent
+        )
+      ),
     );
 
   }

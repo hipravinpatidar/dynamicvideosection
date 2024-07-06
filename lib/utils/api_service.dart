@@ -21,7 +21,6 @@ class ApiService {
 
   // Sub Category
 
- // final urlsubcategory = 'https://dev-mahakal.rizrv.in/api/v1/astro/get-by-youtube-category/42';
   Future getSubcategory(String url) async {
     final response = await http.get(Uri.parse(url));
     if (response.statusCode == 200) {
@@ -32,4 +31,15 @@ class ApiService {
     }
   }
 
+  // Video Category
+
+  Future getVideo(String url)async{
+    final response = await http.get(Uri.parse(url));
+    if(response.statusCode == 200){
+      final jsonBody = jsonDecode(response.body);
+      return jsonBody;
+    }else{
+      throw Exception('Failed to load videos');
+    }
+}
 }
