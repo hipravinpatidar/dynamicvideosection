@@ -8,9 +8,9 @@ class ApiService {
 
   // Category
 
-  final urlcategory = 'https://dev-mahakal.rizrv.in/api/v1/astro/youtube/video/category';
+  final urlCategory = 'https://dev-mahakal.rizrv.in/api/v1/astro/youtube/video/category';
   Future getCategory(String url) async {
-    final response = await http.get(Uri.parse(urlcategory));
+    final response = await http.get(Uri.parse(urlCategory));
     if (response.statusCode == 200) {
       final jsonBody = json.decode(response.body);
       return jsonBody;

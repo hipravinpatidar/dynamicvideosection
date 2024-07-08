@@ -13,13 +13,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: VideoSectionMain(),
+      home: const VideoSectionMain(),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           color: CustomColors.clrwhite,
         ),
-        tabBarTheme: TabBarTheme(
+        tabBarTheme: const TabBarTheme(
             overlayColor: WidgetStateColor.transparent
         )
       ),

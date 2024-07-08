@@ -22,8 +22,6 @@ class _VideoSectionMainState extends State<VideoSectionMain> {
 
   bool _isGridView = true;
 
-  String _search = '';
-  final TextEditingController _searchController = TextEditingController();
 
   @override
   void initState() {
@@ -42,8 +40,7 @@ class _VideoSectionMainState extends State<VideoSectionMain> {
       builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
         return SafeArea(
             child: DefaultTabController(
-              //length: category.length,
-              length: category.where((element) => element.name!.toLowerCase().contains(_search.toLowerCase())).toList().length,
+              length: category.length,
               child: Scaffold(
 
                 appBar: PreferredSize(
@@ -69,15 +66,8 @@ class _VideoSectionMainState extends State<VideoSectionMain> {
                                       color: CustomColors.clrgreydark, width: 0.8),
                                   borderRadius: BorderRadius.circular(10)
                               ),
-                              child: Center(
+                              child: const Center(
                                 child: TextField(
-                                  controller: _searchController,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      _search = value;
-                                    });
-                                  },
-
                                   decoration: InputDecoration(
                                       hintText: "Search",
                                       border: InputBorder.none,
@@ -116,7 +106,7 @@ class _VideoSectionMainState extends State<VideoSectionMain> {
                                               : null,
                                           borderRadius: BorderRadius.circular(5),
                                         ),
-                                        child: ImageIcon(NetworkImage("https://cdn0.iconfinder.com/data/icons/rounded-basics/24/svg-rounded_list-512.png"),
+                                        child: ImageIcon(const NetworkImage("https://cdn0.iconfinder.com/data/icons/rounded-basics/24/svg-rounded_list-512.png"),
                                             color: _isGridView ? CustomColors.clrorange: Colors.black),
                                       )
                                   ),
@@ -164,8 +154,7 @@ class _VideoSectionMainState extends State<VideoSectionMain> {
                           fontFamily: 'Roboto'),
                       indicatorSize: TabBarIndicatorSize.tab,
                       isScrollable: true,
-                       // tabs: List.generate(category.length, (int index)=> Tab(text: category[index].name)),
-                      tabs: List.generate(category.where((element) => element.name!.toLowerCase().contains(_search.toLowerCase())).toList().length, (int index)=> Tab(text: category.where((element) => element.name!.toLowerCase().contains(_search.toLowerCase())).toList()[index].name)),
+                       tabs: List.generate(category.length, (int index)=> Tab(text: category[index].name)),
 
                     ),
                   ),
@@ -174,8 +163,7 @@ class _VideoSectionMainState extends State<VideoSectionMain> {
                 // My SubCategory Data
 
                 body:  TabBarView(
-               // children: category.map((category) {
-                  children: category.where((element) => element.name!.toLowerCase().contains(_search.toLowerCase())).toList().map((category) {
+                 children: category.map((category) {
                     return FutureBuilder(
                 future: getSubcategoryData(category.id),
                 builder: (context, snapshot) {
@@ -183,11 +171,11 @@ class _VideoSectionMainState extends State<VideoSectionMain> {
                 List<KathaModel> subcategory = snapshot.data!;
                return _isGridView ? ListviewData(subcategory: subcategory,onButtonClicked: ( KathaModel subcategory){
                  print(subcategory.id);
-                 Navigator.push(context, MaterialPageRoute(builder:(context)=> VideosData(categoryName: category.name,subcategoryId: subcategory.id,)));
+                 Navigator.push(context, MaterialPageRoute(builder:(context)=> YoutubeScreen(categoryName: category.name,subcategoryId: subcategory.id,)));
 
 
                },) : GridviewData(subcategory: subcategory,onButtonClicked: ( KathaModel subcategory){
-                 Navigator.push(context, MaterialPageRoute(builder: (context) => VideosData(categoryName: category.name,subcategoryId: subcategory.id,),));
+                 Navigator.push(context, MaterialPageRoute(builder: (context) => YoutubeScreen(categoryName: category.name,subcategoryId: subcategory.id,),));
                },);
 
                } else {

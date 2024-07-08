@@ -16,9 +16,7 @@ class GridviewData extends StatelessWidget {
     var screenWidth = MediaQuery.of(context).size.width;
 
     return SafeArea(child: Scaffold(
-
       backgroundColor: CustomColors.clrwhite,
-
       body:  GridView.builder(
         shrinkWrap: true,
         scrollDirection: Axis.vertical,
@@ -26,12 +24,7 @@ class GridviewData extends StatelessWidget {
         itemCount: subcategory.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-         // childAspectRatio: screenWidth / (screenHeight / 1.2), // adjust the aspect ratio based on your design
-
-          childAspectRatio: screenWidth<500 ? 0.78 : 0.9
-          // childAspectRatio: screenWidth *  0.0019
-          //childAspectRatio: screenwidth * 0.0018
-         // childAspectRatio: screenheight * 0.0010
+            childAspectRatio: screenWidth<500 ? 0.78 : 0.9
         ),
         itemBuilder: (BuildContext context, int index) {
           return Padding(
@@ -39,8 +32,6 @@ class GridviewData extends StatelessWidget {
             child:  LayoutBuilder(
               builder: (context, constraints) {
                 return  Container(
-                  // height: constraints.maxHeight * 0.8,
-                  // width: constraints.maxWidth * 0.8,
                   decoration: BoxDecoration(
                       color: CustomColors.clrskyblue,
                       borderRadius: BorderRadius.circular(10),
@@ -57,8 +48,6 @@ class GridviewData extends StatelessWidget {
                     children: <Widget>[
 
                       Container(
-                          // width: screenwidth * 0.44,
-                          // height: screenheight * 0.17,
                         height: constraints.maxHeight * 0.6,
                             width: constraints.maxWidth * 1,
                             decoration:BoxDecoration(
@@ -78,7 +67,7 @@ class GridviewData extends StatelessWidget {
 
                                   Padding(
                                     padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.01),
-                                    child: SizedBox(child: Text("",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 12,color: CustomColors.clrblack,fontFamily: 'Roboto',overflow: TextOverflow.ellipsis),maxLines: 1,))),
+                                    child: const SizedBox(child: Text("",style: TextStyle(fontWeight: FontWeight.w500,fontSize: 12,color: CustomColors.clrblack,fontFamily: 'Roboto',overflow: TextOverflow.ellipsis),maxLines: 1,))),
 
 
                             SizedBox(height: screenWidth * 0.02,),

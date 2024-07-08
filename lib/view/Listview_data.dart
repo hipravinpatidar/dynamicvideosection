@@ -1,8 +1,6 @@
 import 'package:dynamicvideosection/model/subcategory_model.dart';
 import 'package:dynamicvideosection/ui_helper/custom_colors.dart';
-import 'package:dynamicvideosection/view/videos_data.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 
 class ListviewData extends StatelessWidget {
@@ -32,8 +30,6 @@ class ListviewData extends StatelessWidget {
                 return  Padding(
                       padding: EdgeInsets.symmetric(vertical: screenWidth * 0.02),
                       child: Container(
-                        // width: screenwidth * 0.5,
-                        // height: screenheight * 0.25/2,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color:CustomColors.clrskyblue
@@ -67,23 +63,7 @@ class ListviewData extends StatelessWidget {
                                     child: GestureDetector(
 
                                       onTap: () async{
-
-                                        // // Make API call to get videos by subcategory
-                                        // final response = await http.get(Uri.parse(
-                                        //     'https://dev-mahakal.rizrv.in/api/v1/astro/getVideosBySubcategory/${subcategory[index].id}'));
-                                        //
-                                        // if (response.statusCode == 200) {
-                                        //   // Parse the response and play the video
-                                        //   // For example, you can use a video player package like `video_player`
-                                        //   // and play the video with the received URL
-                                        //   print('Video URL: ${response.body}');
-                                        //   // Play the video here
-                                        // } else {
-                                        //   print('Error: ${response.statusCode}');
-                                        // }
-
                                         onButtonClicked(subcategory[index]);
-
                                       },
 
                                       child: Container(

@@ -4,37 +4,17 @@
 
 import 'dart:convert';
 
-VideoModel videoModelFromJson(String str) => VideoModel.fromJson(json.decode(str));
+List<VideoModel> videoModelFromJson(String str) => List<VideoModel>.from(json.decode(str).map((x) => VideoModel.fromJson(x)));
 
-String videoModelToJson(VideoModel data) => json.encode(data.toJson());
+String videoModelToJson(List<VideoModel> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class VideoModel {
-  int status;
-  List<Datum> data;
-
-  VideoModel({
-    required this.status,
-    required this.data,
-  });
-
-  factory VideoModel.fromJson(Map<String, dynamic> json) => VideoModel(
-    status: json["status"],
-    data: List<Datum>.from(json["data"].map((x) => Datum.fromJson(x))),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "status": status,
-    "data": List<dynamic>.from(data.map((x) => x.toJson())),
-  };
-}
-
-class Datum {
   int id;
   int categoryId;
   int subcategoryId;
   String name;
   String slug;
-  String? description;
+  dynamic description;
   String url;
   String image;
   int status;
@@ -42,7 +22,7 @@ class Datum {
   DateTime updatedAt;
   List<dynamic> translations;
 
-  Datum({
+  VideoModel({
     required this.id,
     required this.categoryId,
     required this.subcategoryId,
@@ -57,7 +37,7 @@ class Datum {
     required this.translations,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory VideoModel.fromJson(Map<String, dynamic> json) => VideoModel(
     id: json["id"],
     categoryId: json["category_id"],
     subcategoryId: json["subcategory_id"],
