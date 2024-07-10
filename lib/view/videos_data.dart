@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:dynamicvideosection/model/videocategory_model.dart';
 import 'package:flutter/material.dart';
@@ -24,11 +25,21 @@ class _YoutubeScreenState extends State<YoutubeScreen> {
 
   List<VideoModel> videoCategory = [];
 
+  Timer? _loadingTimer;
+
   Future<void> getVideoData(int subcategoryId) async {
     isLoading = true;
+    _loadingTimer = Timer(const Duration(seconds: 5), () {
+      if (isLoading) {
+        _showNoVideosAvailableDialog();
+      }
+    });
     final url = 'https://dev-mahakal.rizrv.in/api/v1/astro/getVideosBySubcategory/$subcategoryId';
     final response = await ApiService().getVideo(url);
     videoCategory = videoModelFromJson(jsonEncode(response['data']));
+    if (videoCategory.isEmpty) {
+      _showNoVideosAvailableDialog();
+    } else {
       final videoID = YoutubePlayer.convertUrlToId(videoCategory[0].url);
       videoMetaData = const YoutubeMetaData();
       youtubePlayerController = YoutubePlayerController(
@@ -40,13 +51,23 @@ class _YoutubeScreenState extends State<YoutubeScreen> {
         ),
       )..addListener(listener);
       isLoading = false;
-    setState(() {});
+      setState(() {});
+    }
+    _loadingTimer?.cancel();
   }
 
   @override
   void initState() {
     getVideoData(widget.subcategoryId);
     super.initState();
+    youtubePlayerController = YoutubePlayerController(
+      initialVideoId: '',
+      flags: const YoutubePlayerFlags(
+        useHybridComposition: true,
+        mute: false,
+        autoPlay: true,
+      ),
+    );
   }
 
   void listener() {
@@ -68,6 +89,29 @@ class _YoutubeScreenState extends State<YoutubeScreen> {
   void dispose() {
     youtubePlayerController.dispose();
     super.dispose();
+  }
+
+   _showNoVideosAvailableDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shadowColor: Colors.black,
+          backgroundColor: CustomColors.clrwhite,
+          title: const Text('No Videos Available'),
+          content: const Text('Sorry, no videos are available for this category.'),
+          actions: [
+            ElevatedButton(
+              child: const Text('Go Back',style: TextStyle(color: CustomColors.clrblack),),
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
